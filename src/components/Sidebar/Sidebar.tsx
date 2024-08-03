@@ -1,29 +1,51 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { HomeIcon, UserIcon, CogIcon } from '@heroicons/react/24/outline';
+import { HomeIcon, CogIcon, ShoppingBagIcon } from '@heroicons/react/24/outline';
+import  Image  from 'next/image'
+import logo from '../../assets/logo.png'; 
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
+  // useEffect(() => {
+  //   const handleMouseEnter = () => setIsOpen(true);
+    
+  //   const sidebarElement = document.querySelector('.sidebar');
+
+  //   if (sidebarElement) {
+  //     sidebarElement.addEventListener('mouseenter', handleMouseEnter);
+
+  //     return () => {
+  //       sidebarElement.removeEventListener('mouseenter', handleMouseEnter);
+  //     };
+  //   }
+  // }, []);
+
   return (
     <div
-      className={`fixed top-0 left-0 h-full bg-gradient-to-l from-cyan-900  to-slate-800 shadow-lg transition-all duration-300 ${
+      className={`sidebar fixed top-0 left-0 h-full bg-gradient-to-l from-cyan-900 to-slate-800 shadow-lg transition-all duration-500 ${
         isOpen ? 'w-64' : 'w-16'
       }`}
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
       <div className="flex flex-col items-center h-full">
-        <div className="flex items-center justify-center h-20 w-full">
-          <span className="text-white font-font-bold text-2xl">{isOpen ? 'Zeus' : 'Z'}</span>
-          {/* <img src="./logo.png"  className="h-10 w-10 rounded-full" alt="" /> */}
+        <div className="flex items-center justify-center h-20 w-full shadow">
+          <span className="text-white text-2xl mr-2">{isOpen ? 'ASTRUS' : ''}</span>
+          <Image
+            src={logo}
+            alt="Logo"
+            width={30}
+            height={30}
+          />
+          <span className="text-white text-2xl ml-2">{isOpen ? 'DIGITAL' : ''}</span>
         </div>
-        <nav className="flex flex-col mt-6 w-full font-semibold">
+        <nav className="flex flex-col mt-6 w-full font-semibold ">
           <NavItem href="/" icon={<HomeIcon className="h-6 w-6" />} text="Home" isOpen={isOpen} />
-          <NavItem href="/products" icon={<UserIcon className="h-6 w-6" />} text="Products" isOpen={isOpen} />
-          <NavItem href="/settings" icon={<CogIcon className="h-6 w-6" />} text="Settings" isOpen={isOpen} />
+          <NavItem href="/products" icon={<ShoppingBagIcon className="h-6 w-6" />} text="Produtos" isOpen={isOpen} />
+          <NavItem href="/settings" icon={<CogIcon className="h-6 w-6" />} text="Configurações" isOpen={isOpen} />
         </nav>
       </div>
     </div>
