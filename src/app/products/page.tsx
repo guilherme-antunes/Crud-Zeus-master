@@ -1,118 +1,150 @@
-'use client';
-import ModalComponent from "@/components/Modal/Modal";
-import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
-import { 
-  Box, 
-  Button, 
-  Flex,
-  Table, 
-  Tbody, 
-  Td, 
-  Th, 
-  Thead, 
-  Tr,
-  useDisclosure,
-  useBreakpointValue // Alterado aqui
-} from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+// pages/index.tsx
+'use client'
+import { useState, useEffect } from "react";
 
-export default function App() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [data, setData] = useState([]);
-  const [dataEdit, setDataEdit] = useState({});
+interface Product {
+  name: string;
+  price: string;
+  quantity: string;
+}
 
-  // Substituído useBreakpoint por useBreakpointValue
-  const isMobile = useBreakpointValue({
-    base: true,
-    lg: false,
-  });
+export default function Home() {
+  const [data, setData] = useState<Product[]>([]);
+  const [dataEdit, setDataEdit] = useState<Product | null>(null);
+  const [form, setForm] = useState<Product>({ name: "", price: "", quantity: "" });
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const storedData = localStorage.getItem("cad_produto");
-      const db_product = storedData ? JSON.parse(storedData) : [];
-      setData(db_product);
-    }
+    const storedData = localStorage.getItem("cad_produto");
+    const db_product = storedData ? JSON.parse(storedData) : [];
+    setData(db_product);
   }, []);
-  
 
   const handleRemove = (index: number) => {
     const newArray = data.filter((_, i) => i !== index);
     setData(newArray);
-    if (typeof window !== "undefined") {
-      localStorage.setItem("cad_produto", JSON.stringify(newArray));
+    localStorage.setItem("cad_produto", JSON.stringify(newArray));
+  };
+
+  const handleSave = () => {
+    if (dataEdit) {
+      const updatedData = data.map((item, index) =>
+        index === data.indexOf(dataEdit) ? form : item
+      );
+      setData(updatedData);
+      localStorage.setItem("cad_produto", JSON.stringify(updatedData));
+    } else {
+      const newData = [...data, form];
+      setData(newData);
+      localStorage.setItem("cad_produto", JSON.stringify(newData));
     }
-  }
+
+    setForm({ name: "", price: "", quantity: "" });
+    setDataEdit(null);
+  };
+
+  const handleEdit = (item: Product) => {
+    setDataEdit(item);
+    setForm(item);
+  };
 
   return (
-    <>
-      <Flex 
-        h="100vh" 
-        align="center" 
-        justify="center" 
-        fontSize="20px" 
-        fontFamily="poppins"
-        direction="column"
-        px={4}
-      >
-        <Box maxW={800} w="100%" h="100vh" py={10} px={2}>
-          <Button colorScheme="purple"  onClick={() => [setDataEdit({}), onOpen()]}>
-            Adicionar 
-          </Button>
-          <Box overflowY="auto" height="100%">
-            <Table mt="6">
-              <Thead>
-                <Tr>
-                  <Th maxW={isMobile ? 5 : 100} fontSize="20px">
-                    Nome
-                  </Th>
-                  <Th maxW={isMobile ? 5 : 100} fontSize="20px">
-                    Preço
-                  </Th>
-                  <Th maxW={isMobile ? 5 : 100} fontSize="20px">
-                    Quantidade
-                  </Th>
-                  <Th p={0}></Th>
-                  <Th p={0}></Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                {data.map((item: any, index: number) => (
-                  <Tr key={index} cursor="pointer" _hover={{ bg: "gray.100" }}>
-                    <Td maxW={isMobile ? 5 : 100}>{item.name}</Td>
-                    <Td maxW={isMobile ? 5 : 100}>{item.price}</Td>
-                    <Td maxW={isMobile ? 5 : 100}>{item.quantity}</Td>
-                    <Td p={0}>
-                      <EditIcon
-                        fontSize={20}
-                        onClick={() => [
-                          setDataEdit({ ...item, index }),
-                          onOpen(),
-                        ]}
-                      />
-                    </Td>
-                    <Td p={0}>
-                      <DeleteIcon
-                        fontSize={20}
-                        onClick={() => handleRemove(index)}
-                      />
-                    </Td>
-                  </Tr>
-                ))}
-              </Tbody>
-            </Table>
-          </Box>
-        </Box>
-        {isOpen && (
-          <ModalComponent
-            data={data}
-            setData={setData}
-            dataEdit={dataEdit}
-            isOpen={isOpen}
-            onClose={onClose}
-          />  
-        )}
-      </Flex>
-    </>
+    <div className="flex items-center justify-center mt-20 text-white font-poppins">
+      <div className="w-full max-w-3xl p-4">
+        <div className="mb-4 ">
+          <input
+            type="text"
+            placeholder="Nome"
+            value={form.name}
+            onChange={(e) => setForm({ ...form, name: e.target.value })}
+            className="bg-gray-700 text-white py-2 px-4 rounded mr-2 mb-2"
+          />
+          <input
+            type="text"
+            placeholder="Preço"
+            value={form.price}
+            onChange={(e) => setForm({ ...form, price: e.target.value })}
+            className="bg-gray-700 text-white py-2 px-4 rounded mr-2 mb-2"
+          />
+          <input
+            type="text"
+            placeholder="Quantidade"
+            value={form.quantity}
+            onChange={(e) => setForm({ ...form, quantity: e.target.value })}
+            className="bg-gray-700 text-white py-2 px-4 rounded mr-2 mb-2"
+          />
+          <button
+            onClick={handleSave}
+            className="bg-teal-700 hover:bg-teal-600 text-white font-semibold py-2 px-4 rounded"
+          >
+            {dataEdit ? "Salvar Alterações" : "Adicionar"}
+          </button>
+        </div>
+
+        <div className="overflow-hidden rounded-lg shadow-lg">
+          <table className="min-w-full bg-gray-900">
+            <thead className="bg-cyan-700">
+              <tr>
+                <th className="text-left py-3 px-4 uppercase font-semibold text-sm">
+                  Nome
+                </th>
+                <th className="text-left py-3 px-4 uppercase font-semibold text-sm">
+                  Preço
+                </th>
+                <th className="text-left py-3 px-4 uppercase font-semibold text-sm">
+                  Quantidade
+                </th>
+                <th className="py-3 px-4"></th>
+                <th className="py-3 px-4"></th>
+              </tr>
+            </thead>
+            <tbody className="text-gray-300">
+              {data.map((item, index) => (
+                <tr key={index} className="bg-gray-800 hover:bg-gray-700">
+                  <td className="py-3 px-4 truncate">{item.name}</td>
+                  <td className="py-3 px-4 truncate">{item.price}</td>
+                  <td className="py-3 px-4 truncate">{item.quantity}</td>
+                  <td className="py-3 px-4">
+                    <button
+                      className="text-blue-500 hover:text-blue-400"
+                      onClick={() => handleEdit(item)}
+                    >
+                      {/* Ícone Editar */}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path d="M17.414 2.586a2 2 0 010 2.828l-9.829 9.829-4.292 1.071a1 1 0 01-1.213-1.213l1.071-4.292 9.829-9.829a2 2 0 012.828 0zM15.243 4l-9.829 9.829-1.243-.311.311-1.243L14 3.757 15.243 4z" />
+                      </svg>
+                    </button>
+                  </td>
+                  <td className="py-3 px-4">
+                    <button
+                      className="text-red-500 hover:text-red-400"
+                      onClick={() => handleRemove(index)}
+                    >
+                      {/* Ícone Deletar */}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M8.707 10l-2.5-2.5a1 1 0 011.414-1.414L10 8.586l2.5-2.5a1 1 0 111.414 1.414L11.414 10l2.5 2.5a1 1 0 01-1.414 1.414L10 11.414l-2.5 2.5a1 1 0 01-1.414-1.414L8.707 10z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   );
 }

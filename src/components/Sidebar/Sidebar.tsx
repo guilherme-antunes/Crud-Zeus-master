@@ -9,20 +9,6 @@ import logo from '../../assets/logo.png';
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  // useEffect(() => {
-  //   const handleMouseEnter = () => setIsOpen(true);
-    
-  //   const sidebarElement = document.querySelector('.sidebar');
-
-  //   if (sidebarElement) {
-  //     sidebarElement.addEventListener('mouseenter', handleMouseEnter);
-
-  //     return () => {
-  //       sidebarElement.removeEventListener('mouseenter', handleMouseEnter);
-  //     };
-  //   }
-  // }, []);
-
   return (
     <div
       className={`sidebar fixed top-0 left-0 h-full bg-gradient-to-l from-cyan-900 to-slate-800 shadow-lg transition-all duration-500 ${

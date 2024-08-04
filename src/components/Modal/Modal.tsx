@@ -79,6 +79,7 @@ export default function ModalComponent({
               <Input
                 type="number"
                 value={price}
+                placeholder="R$"
                 onChange={(e) => setPrice(e.target.value)}
               />
             </Box>
@@ -94,7 +95,7 @@ export default function ModalComponent({
         </ModalBody>
 
         <ModalFooter>
-          <Button colorScheme="purple" mr={3} onClick={handleSave}>
+          <Button bg="teal.700" color="white" _hover={{ bg: "teal.600" }}  mr={3} onClick={handleSave}>
             Salvar
           </Button>
           <Button colorScheme="gray" onClick={onClose}>
