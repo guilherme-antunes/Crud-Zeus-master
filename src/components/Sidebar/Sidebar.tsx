@@ -11,7 +11,7 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`sidebar fixed top-0 left-0 h-full bg-gradient-to-l from-cyan-900 to-slate-800 shadow-lg transition-all duration-500 ${
+      className={`sidebar fixed top-0 left-0 h-full bg-gradient-to-l from-cyan-900 to-slate-800 shadow-lg transition-all duration-400 ${
         isOpen ? 'w-64' : 'w-16'
       }`}
       onMouseEnter={() => setIsOpen(true)}

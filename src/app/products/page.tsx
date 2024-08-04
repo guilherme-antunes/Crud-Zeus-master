@@ -59,7 +59,7 @@ export default function Home() {
             className="bg-gray-700 text-white py-2 px-4 rounded mr-2 mb-2"
           />
           <input
-            type="text"
+            type="number"
             placeholder="Preço"
             value={form.price}
             onChange={(e) => setForm({ ...form, price: e.target.value })}
