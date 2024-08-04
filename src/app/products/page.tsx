@@ -48,22 +48,24 @@ export default function Home() {
   };
 
   return (
-    <div className="flex items-center justify-center mt-16 text-white font-poppins">
-      <div className="w-full max-w-md lg:max-w-3xl p-0 ">
-        <h1 className="lg:text-2xl text-xl font-bold uppercase mb-4">Cadastrar Produtos</h1>        
+    <div className="flex items-center justify-center mt-16 text-white font-poppins overflow-x-hidden">
+      <div className="w-full max-w-lg lg:max-w-3xl p-0 ">
+        <h1 className="lg:text-3xl text-xl font-bold uppercase mb-4 flex ">Cadastrar Produtos</h1>        
         <div className="mb-4 ">
           <input
             type="text"
             placeholder="Nome"
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
+            required
             className="bg-cyan-900 text-white py-2 px-2 lg:px-4 rounded mr-2 mb-2 text-sm lg:text-base"
           />
           <input
             type="number"
-            placeholder="Preço"
+            placeholder="R$"
             value={form.price}
             onChange={(e) => setForm({ ...form, price: e.target.value })}
+            required
             className="bg-cyan-900 text-white py-2 px-2 lg:px-4 rounded mr-2 mb-2 text-sm lg:text-base"
           />
           <input
@@ -71,13 +73,14 @@ export default function Home() {
             placeholder="Quantidade"
             value={form.quantity}
             onChange={(e) => setForm({ ...form, quantity: e.target.value })}
+            required
             className="bg-cyan-900 text-white py-2 px-2 lg:px-4 rounded mr-2 mb-2 text-sm lg:text-base"
           />
           <button
             onClick={handleSave}
             className="bg-cyan-700 hover:bg-cyan-600 text-white font-semibold py-2 px-4 rounded-lg text-sm lg:text-base"
           >
-            {dataEdit ? "Salvar Alterações" : "Adicionar"}
+            {dataEdit ? "Salvar alterações" : "Adicionar"}
           </button>
         </div>
 
@@ -101,9 +104,9 @@ export default function Home() {
             <tbody className="text-gray-300">
               {data.map((item, index) => (
                 <tr key={index} className="bg-gray-800 hover:bg-gray-700">
-                  <td className="py-3 px-4 truncate">{item.name}</td>
-                  <td className="py-3 px-4 truncate">{item.price}</td>
-                  <td className="py-3 px-4 truncate">{item.quantity}</td>
+                  <td className="py-3 px-4 truncate text-xs lg:text-base">{item.name}</td>
+                  <td className="py-3 px-4 truncate text-xs lg:text-base"><p>R$ {item.price}</p></td>
+                  <td className="py-3 px-4 truncate text-xs lg:text-base">{item.quantity}</td>
                   <td className="py-3 px-4">
                     <button
                       className="text-blue-500 hover:text-blue-400"
@@ -119,14 +122,14 @@ export default function Home() {
                       </svg>
                     </button>
                   </td>
-                  <td className="py-3 px-4">
+                  <td className="py-3 px-2">
                     <button
                       className="text-red-500 hover:text-red-400"
                       onClick={() => handleRemove(index)}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className="h-5 w-5"
+                        className="h-5 w-5 lg:h-6 lg:w-6"
                         viewBox="0 0 20 20"
                         fill="currentColor"
                       >

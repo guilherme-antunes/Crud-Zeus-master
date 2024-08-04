@@ -3,19 +3,37 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { HomeIcon, CogIcon, ShoppingBagIcon } from '@heroicons/react/24/outline';
-import  Image  from 'next/image'
-import logo from '../../assets/logo.png'; 
+import Image from 'next/image';
+import logo from '../../assets/logo.png';
 
 const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    // Verifica o estado salvo no localStorage
+    const storedIsOpen = localStorage.getItem('sidebarIsOpen');
+    if (storedIsOpen !== null) {
+      setIsOpen(JSON.parse(storedIsOpen));
+    }
+  }, []);
+
+  const handleMouseEnter = () => {
+    setIsOpen(true);
+    localStorage.setItem('sidebarIsOpen', JSON.stringify(true));
+  };
+
+  const handleMouseLeave = () => {
+    setIsOpen(false);
+    localStorage.setItem('sidebarIsOpen', JSON.stringify(false));
+  };
 
   return (
     <div
       className={`sidebar fixed top-0 left-0 h-full bg-gradient-to-l from-cyan-900 to-slate-800 shadow-lg transition-all duration-400 ${
         isOpen ? 'w-52 lg:w-64' : 'w-16'
       }`}
-      onMouseEnter={() => setIsOpen(true)}
-      onMouseLeave={() => setIsOpen(false)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <div className="flex flex-col items-center h-full">
         <div className="flex items-center justify-center h-20 w-full shadow">
@@ -23,7 +41,7 @@ const Sidebar = () => {
           <Image
             src={logo}
             alt="Logo"
-            className='h-5 w-5 lg:h-7 lg:w-7'
+            className="h-5 w-5 lg:h-7 lg:w-7"
           />
           <span className="text-white text-lg lg:text-2xl ml-2">{isOpen ? 'DIGITAL' : ''}</span>
         </div>
