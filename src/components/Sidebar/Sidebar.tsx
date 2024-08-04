@@ -12,26 +12,25 @@ const Sidebar = () => {
   return (
     <div
       className={`sidebar fixed top-0 left-0 h-full bg-gradient-to-l from-cyan-900 to-slate-800 shadow-lg transition-all duration-400 ${
-        isOpen ? 'w-64' : 'w-16'
+        isOpen ? 'w-52 lg:w-64' : 'w-16'
       }`}
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
       <div className="flex flex-col items-center h-full">
         <div className="flex items-center justify-center h-20 w-full shadow">
-          <span className="text-white text-2xl mr-2">{isOpen ? 'ASTRUS' : ''}</span>
+          <span className="text-white lg:text-2xl mr-2">{isOpen ? 'ASTRUS' : ''}</span>
           <Image
             src={logo}
             alt="Logo"
-            width={30}
-            height={30}
+            className='h-5 w-5 lg:h-7 lg:w-7'
           />
-          <span className="text-white text-2xl ml-2">{isOpen ? 'DIGITAL' : ''}</span>
+          <span className="text-white text-lg lg:text-2xl ml-2">{isOpen ? 'DIGITAL' : ''}</span>
         </div>
-        <nav className="flex flex-col mt-6 w-full font-semibold ">
-          <NavItem href="/" icon={<HomeIcon className="h-6 w-6" />} text="Home" isOpen={isOpen} />
-          <NavItem href="/products" icon={<ShoppingBagIcon className="h-6 w-6" />} text="Produtos" isOpen={isOpen} />
-          <NavItem href="/settings" icon={<CogIcon className="h-6 w-6" />} text="Configurações" isOpen={isOpen} />
+        <nav className="flex flex-col mt-6 w-full font-semibold text-sm lg:text-base">
+          <NavItem href="/" icon={<HomeIcon className="h-5 w-5 lg:h-6 lg:w-6" />} text="Home" isOpen={isOpen} />
+          <NavItem href="/products" icon={<ShoppingBagIcon className="h-5 w-5 lg:h-6 lg:w-6" />} text="Produtos" isOpen={isOpen} />
+          <NavItem href="#" icon={<CogIcon className="h-5 w-5 lg:h-6 lg:w-6" />} text="Configurações" isOpen={isOpen} />
         </nav>
       </div>
     </div>

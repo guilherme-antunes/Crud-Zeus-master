@@ -48,33 +48,34 @@ export default function Home() {
   };
 
   return (
-    <div className="flex items-center justify-center mt-20 text-white font-poppins">
-      <div className="w-full max-w-3xl p-4">
+    <div className="flex items-center justify-center mt-16 text-white font-poppins">
+      <div className="w-full max-w-md lg:max-w-3xl p-0 ">
+        <h1 className="lg:text-2xl text-xl font-bold uppercase mb-4">Cadastrar Produtos</h1>        
         <div className="mb-4 ">
           <input
             type="text"
             placeholder="Nome"
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
-            className="bg-gray-700 text-white py-2 px-4 rounded mr-2 mb-2"
+            className="bg-cyan-900 text-white py-2 px-2 lg:px-4 rounded mr-2 mb-2 text-sm lg:text-base"
           />
           <input
             type="number"
             placeholder="Preço"
             value={form.price}
             onChange={(e) => setForm({ ...form, price: e.target.value })}
-            className="bg-gray-700 text-white py-2 px-4 rounded mr-2 mb-2"
+            className="bg-cyan-900 text-white py-2 px-2 lg:px-4 rounded mr-2 mb-2 text-sm lg:text-base"
           />
           <input
             type="text"
             placeholder="Quantidade"
             value={form.quantity}
             onChange={(e) => setForm({ ...form, quantity: e.target.value })}
-            className="bg-gray-700 text-white py-2 px-4 rounded mr-2 mb-2"
+            className="bg-cyan-900 text-white py-2 px-2 lg:px-4 rounded mr-2 mb-2 text-sm lg:text-base"
           />
           <button
             onClick={handleSave}
-            className="bg-teal-700 hover:bg-teal-600 text-white font-semibold py-2 px-4 rounded"
+            className="bg-cyan-700 hover:bg-cyan-600 text-white font-semibold py-2 px-4 rounded-lg text-sm lg:text-base"
           >
             {dataEdit ? "Salvar Alterações" : "Adicionar"}
           </button>
@@ -84,13 +85,13 @@ export default function Home() {
           <table className="min-w-full bg-gray-900">
             <thead className="bg-cyan-700">
               <tr>
-                <th className="text-left py-3 px-4 uppercase font-semibold text-sm">
+                <th className="text-left py-3 px-4 uppercase font-semibold lg:text-sm text-xs">
                   Nome
                 </th>
-                <th className="text-left py-3 px-4 uppercase font-semibold text-sm">
+                <th className="text-left py-3 px-4 uppercase font-semibold lg:text-sm text-xs">
                   Preço
                 </th>
-                <th className="text-left py-3 px-4 uppercase font-semibold text-sm">
+                <th className="text-left py-3 px-4 uppercase font-semibold lg:text-sm text-xs">
                   Quantidade
                 </th>
                 <th className="py-3 px-4"></th>
@@ -108,10 +109,9 @@ export default function Home() {
                       className="text-blue-500 hover:text-blue-400"
                       onClick={() => handleEdit(item)}
                     >
-                      {/* Ícone Editar */}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className="h-5 w-5"
+                        className="h-4 w-4 lg:h-5 lg:w-5"
                         viewBox="0 0 20 20"
                         fill="currentColor"
                       >
@@ -124,7 +124,6 @@ export default function Home() {
                       className="text-red-500 hover:text-red-400"
                       onClick={() => handleRemove(index)}
                     >
-                      {/* Ícone Deletar */}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-5 w-5"

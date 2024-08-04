@@ -17,7 +17,7 @@ export default function RootLayout({
         <body className="bg-gradient-to-l from-cyan-900  to-slate-800">
           <div className="flex">
             <Sidebar />
-              <main className="flex-1 ml-20 p-20">
+              <main className="flex-1 ml-20 py-10 lg:p-20">
                 {children}
               </main>
           </div>
